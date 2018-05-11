@@ -7,41 +7,24 @@ import java.util.*
 
 class TasksViewModel : ViewModel(), Observer {
 
+    private val tasks: MutableList<Task> = ArrayList()
     private val taskData = MutableLiveData<List<Task>>()
-    //private var tasks: MutableList<Task> = TaskProvider().createTasks().toMutableList()
 
     fun getTasks(): LiveData<List<Task>> {
-        //if (users == null) {
-        //    users = MutableLiveData<List<Users>>()
-        //    loadUsers()
-        //}
         return taskData
     }
 
-    /*private var users: MutableLiveData<List<User>>? = null
+    fun saveTask(task: Task) {
+        task.addObserver(this)
+        tasks.add(task)
 
-    fun getUsers(): LiveData<List<User>> {
-        if (users == null) {
-            users = MutableLiveData<List<Users>>()
-            loadUsers()
-        }
-        return users
+        taskData.postValue(tasks)
     }
 
-    private fun loadUsers() {
-        // Do an asynchronous operation to fetch users.
-    }
+    override fun update(task: Observable?, arg: Any?) {
+        (task as Task).deleteObserver(this)
+        tasks.remove(task)
 
-
-        for (task in tasks) { //TODO mock for now
-            task.addObserver(this)
-        }
-        */
-
-    override fun update(o: Observable?, arg: Any?) {
-        //TODO stop observe arg
-        //tasks.remove(arg)
-        //val updatedList = tasks.toList()
-        //TODO todoListAdapter.submitList(updatedList)
+        taskData.postValue(tasks.toList())
     }
 }
