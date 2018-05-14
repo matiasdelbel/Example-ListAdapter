@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import com.mdelbel.android.listadapterexample.model.Task
 
 class TasksAdapter : ListAdapter<Task, TaskViewHolder>(TaskDiffCallback()) {
 

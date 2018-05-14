@@ -3,28 +3,32 @@ package com.mdelbel.android.listadapterexample
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
+import com.mdelbel.android.listadapterexample.model.Task
+import com.mdelbel.android.listadapterexample.model.TaskRepository
 import java.util.*
 
-class TasksViewModel : ViewModel(), Observer {
+class TasksViewModel : ViewModel() {
 
-    private val tasks: MutableList<Task> = ArrayList()
+    private val repository = TaskRepository()
+    private val deletionObserver = Observer { o, _ -> deleteTask(o as Task) }
+
     private val taskData = MutableLiveData<List<Task>>()
 
-    fun getTasks(): LiveData<List<Task>> {
+    fun tasks(): LiveData<List<Task>> {
         return taskData
     }
 
     fun saveTask(task: Task) {
-        task.addObserver(this)
-        tasks.add(task)
+        task.addObserver(deletionObserver)
+        repository.save(task)
 
-        taskData.postValue(tasks)
+        taskData.postValue(repository.taskAsList())
     }
 
-    override fun update(task: Observable?, arg: Any?) {
-        (task as Task).deleteObserver(this)
-        tasks.remove(task)
+    fun deleteTask(task: Task) {
+        task.deleteObserver(deletionObserver)
+        repository.delete(task)
 
-        taskData.postValue(tasks.toList())
+        taskData.postValue(repository.taskAsList())
     }
 }

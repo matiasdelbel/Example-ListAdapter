@@ -1,4 +1,4 @@
-package com.mdelbel.android.listadapterexample
+package com.mdelbel.android.listadapterexample.model
 
 import java.util.*
 import java.util.concurrent.atomic.AtomicInteger
