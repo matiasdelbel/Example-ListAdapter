@@ -1,4 +1,4 @@
-package com.mdelbel.android.listadapterexample
+package com.mdelbel.android.listadapterexample.view
 
 import android.app.Dialog
 import android.arch.lifecycle.ViewModelProviders
@@ -7,7 +7,9 @@ import android.support.v4.app.FragmentActivity
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
+import com.mdelbel.android.listadapterexample.R
 import com.mdelbel.android.listadapterexample.model.Task
+import com.mdelbel.android.listadapterexample.viewmodel.TasksViewModel
 
 class CreateTaskScreen : BottomSheetDialogFragment() {
 
@@ -29,8 +31,6 @@ class CreateTaskScreen : BottomSheetDialogFragment() {
 
     private fun saveTask() {
         val task = Task.create(titleView.text.toString())
-
-        val viewModel = ViewModelProviders.of(activity as FragmentActivity).get(TasksViewModel::class.java)
-        viewModel.saveTask(task)
+        ViewModelProviders.of(activity as FragmentActivity).get(TasksViewModel::class.java).saveTask(task)
     }
 }

@@ -1,4 +1,4 @@
-package com.mdelbel.android.listadapterexample
+package com.mdelbel.android.listadapterexample.view
 
 import android.support.v7.recyclerview.extensions.ListAdapter
 import android.support.v7.util.DiffUtil
@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import com.mdelbel.android.listadapterexample.R
 import com.mdelbel.android.listadapterexample.model.Task
 
 class TasksAdapter : ListAdapter<Task, TaskViewHolder>(TaskDiffCallback()) {

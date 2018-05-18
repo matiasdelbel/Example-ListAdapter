@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainScreen">
+    android:id="@+id/to_do_list_container"
+    tools:context=".view.TasksScreen">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/to_do_list"
