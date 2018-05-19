@@ -31,6 +31,9 @@ class CreateTaskScreen : BottomSheetDialogFragment() {
 
     private fun saveTask() {
         val task = Task.create(titleView.text.toString())
-        ViewModelProviders.of(activity as FragmentActivity).get(TasksViewModel::class.java).saveTask(task)
+        val viewModel = ViewModelProviders.of(activity as FragmentActivity).get(TasksViewModel::class.java)
+
+        task.addObserver(viewModel)
+        viewModel.saveTask(task)
     }
 }

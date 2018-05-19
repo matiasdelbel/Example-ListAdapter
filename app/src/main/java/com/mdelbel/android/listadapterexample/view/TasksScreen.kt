@@ -50,7 +50,7 @@ class TasksScreen : AppCompatActivity() {
     }
 
     private fun observeTasksDeletion() {
-        viewModel.restoreTasksListener().observe(this, Observer { task ->
+        viewModel.removedTask().observe(this, Observer { task ->
             val snackbar = Snackbar.make(findViewById(R.id.to_do_list_container), R.string.create_task_deleted, Snackbar.LENGTH_LONG)
 
             snackbar.setAction(R.string.create_task_restore, { _ -> task?.restore() })
@@ -67,7 +67,7 @@ class TasksScreen : AppCompatActivity() {
 
         override fun onDismissed(snackbar: Snackbar?, event: Int) {
             if (DISMISS_EVENT_ACTION != event) {
-                viewModel.stopObserve(task)
+                task?.deleteObserver(viewModel)
             }
         }
     }

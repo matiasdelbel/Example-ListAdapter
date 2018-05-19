@@ -7,12 +7,14 @@ import com.mdelbel.android.listadapterexample.model.Task
 import com.mdelbel.android.listadapterexample.model.TaskRepository
 import java.util.*
 
-class TasksViewModel : ViewModel() {
+class TasksViewModel : ViewModel(), Observer {
 
     private val repository = TaskRepository()
-    //TODO el observer donde deberia estar aca o en la activity
-    private val deletionObserver = Observer { o, _ ->
 
+    private val taskData = MutableLiveData<List<Task>>()
+    private val deletionEvent = SingleLiveEvent<Task>()
+
+    override fun update(o: Observable?, arg: Any?) {
         if ((o as Task).deleted) {
             deleteTask(o)
         } else {
@@ -20,26 +22,17 @@ class TasksViewModel : ViewModel() {
         }
     }
 
-    private val taskData = MutableLiveData<List<Task>>()
-    private val deletionEvent = SingleLiveEvent<Task>()
-
     fun tasks(): LiveData<List<Task>> {
         return taskData
     }
 
-    fun restoreTasksListener(): SingleLiveEvent<Task> {
-        return deletionEvent
-    }
-
-    fun stopObserve(task: Task?) { //TODO no me copa del todo
-        task?.deleteObserver(deletionObserver)
-    }
-
     fun saveTask(task: Task) {
         repository.save(task)
-
-        task.addObserver(deletionObserver)
         taskData.postValue(repository.search())
+    }
+
+    fun removedTask(): SingleLiveEvent<Task> {
+        return deletionEvent
     }
 
     private fun deleteTask(task: Task) {
@@ -51,7 +44,6 @@ class TasksViewModel : ViewModel() {
 
     private fun restoreTask(task: Task) {
         repository.save(task)
-
         taskData.postValue(repository.search())
     }
 }
