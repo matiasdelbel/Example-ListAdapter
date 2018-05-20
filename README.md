@@ -24,7 +24,7 @@ class TasksAdapter : ListAdapter<Task, TaskViewHolder>(TaskDiffCallback()) {
 }
 ```
 
-`ListAdapter`'s constructor receives `TaskDiffCallback` as parameter. This callback it is use internally to check if the item list are the same or if its content may changed.
+`ListAdapter`'s constructor receives `DiffUtil.ItemCallback<>` as parameter. This callback it is use internally to check if the item list are the same or if its content may changed.
 
 ```kotlin
 class TaskDiffCallback : DiffUtil.ItemCallback<Task>() {
