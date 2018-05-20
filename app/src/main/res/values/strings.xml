@@ -1,9 +1,7 @@
 <resources>
-    <string name="app_name">ListAdapterExample</string>
-
-    <string name="create_task_title">Add task&#8230;</string>
+    <string name="app_name">Task List</string>
     <string name="create_task_input_hint">Go to the gym</string>
-    <string name="create_task_save">Save</string>
+    <string name="create_task_save">Add</string>
     <string name="create_task_deleted">Task deleted</string>
     <string name="create_task_restore">Restore</string>
 </resources>
